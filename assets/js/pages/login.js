@@ -7,207 +7,436 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginBtn = document.querySelector('.login-btn');
     const forgotPasswordLink = document.querySelector('.forgot-password');
 
-    // Função para validar email
-    function isValidEmail(email) {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
+    // Configuração de usuários (em produção, isso seria no backend)
+    const users = {
+        'admin@gmail.com': {
+            password: '1234',
+            role: 'admin',
+            redirectTo: 'dashboardadmin.html'
+        },
+        'user@gmail.com': {
+            password: 'user123',
+            role: 'user',
+            redirectTo: 'dashboard.html'
+        }
+    };
+
+    // Utilitários
+    const utils = {
+        // Validação de email
+        isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        },
+
+        // Sanitizar entrada
+        sanitizeInput(input) {
+            return input.trim().toLowerCase();
+        },
+
+        // Debounce para validação em tempo real
+        debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        },
+
+        // Logger melhorado
+        log(level, message, data = null) {
+            const timestamp = new Date().toISOString();
+            const logMessage = `[${timestamp}] [${level.toUpperCase()}] ${message}`;
+            
+            if (level === 'error') {
+                console.error(logMessage, data);
+            } else if (level === 'warn') {
+                console.warn(logMessage, data);
+            } else {
+                console.log(logMessage, data);
+            }
+        }
+    };
+
+    // Classe para gerenciar validações
+    class FormValidator {
+        constructor() {
+            this.errors = new Map();
+        }
+
+        validateEmail(email) {
+            if (!email) {
+                return 'Email é obrigatório';
+            }
+            if (!utils.isValidEmail(email)) {
+                return 'Formato de email inválido';
+            }
+            return null;
+        }
+
+        validatePassword(password) {
+            if (!password) {
+                return 'Senha é obrigatória';
+            }
+            if (password.length < 4) {
+                return 'Senha deve ter pelo menos 4 caracteres';
+            }
+            if (password.length > 50) {
+                return 'Senha muito longa (máximo 50 caracteres)';
+            }
+            return null;
+        }
+
+        validateForm(email, password) {
+            this.errors.clear();
+            
+            const emailError = this.validateEmail(email);
+            const passwordError = this.validatePassword(password);
+            
+            if (emailError) this.errors.set('email', emailError);
+            if (passwordError) this.errors.set('password', passwordError);
+            
+            return this.errors.size === 0;
+        }
+
+        getErrors() {
+            return this.errors;
+        }
     }
 
-    // Função para validar formulário
-    function validateForm() {
+    // Classe para gerenciar UI
+    class UIManager {
+        showError(input, message) {
+            input.classList.add('error');
+            this.clearError(input);
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'error-message';
+            errorDiv.textContent = message;
+            errorDiv.setAttribute('role', 'alert');
+            errorDiv.setAttribute('aria-live', 'polite');
+            
+            input.parentNode.appendChild(errorDiv);
+            
+            // Remove erro automaticamente após 5 segundos
+            setTimeout(() => this.clearError(input), 5000);
+            
+            utils.log('info', 'Error displayed', { field: input.id, message });
+        }
+
+        clearError(input) {
+            input.classList.remove('error');
+            const existingError = input.parentNode.querySelector('.error-message');
+            if (existingError) {
+                existingError.remove();
+            }
+        }
+
+        clearAllErrors() {
+            [emailInput, passwordInput].forEach(input => {
+                this.clearError(input);
+            });
+        }
+
+        showSuccess(message) {
+            const successDiv = document.createElement('div');
+            successDiv.className = 'success-message';
+            successDiv.textContent = message;
+            successDiv.setAttribute('role', 'status');
+            successDiv.setAttribute('aria-live', 'polite');
+            
+            Object.assign(successDiv.style, {
+                background: '#22c55e',
+                color: 'white',
+                padding: '12px 20px',
+                borderRadius: '8px',
+                margin: '20px 0',
+                textAlign: 'center',
+                fontWeight: '500',
+                animation: 'slideIn 0.3s ease',
+                boxShadow: '0 4px 12px rgba(34, 197, 94, 0.3)'
+            });
+            
+            loginForm.insertBefore(successDiv, loginForm.firstChild);
+            
+            setTimeout(() => {
+                if (successDiv.parentNode) {
+                    successDiv.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => successDiv.remove(), 300);
+                }
+            }, 3000);
+            
+            utils.log('info', 'Success message displayed', { message });
+        }
+
+        showLoading() {
+            const originalText = loginBtn.textContent;
+            loginBtn.innerHTML = `
+                <span class="loading-spinner"></span>
+                Entrando...
+            `;
+            loginBtn.disabled = true;
+            loginBtn.classList.add('loading');
+            
+            return () => {
+                loginBtn.textContent = originalText;
+                loginBtn.disabled = false;
+                loginBtn.classList.remove('loading');
+            };
+        }
+
+        animateInputFocus(input, focused) {
+            const inputGroup = input.parentNode;
+            if (focused) {
+                inputGroup.classList.add('focused');
+            } else {
+                inputGroup.classList.remove('focused');
+            }
+        }
+    }
+
+    // Classe para gerenciar autenticação
+    class AuthManager {
+        async login(email, password) {
+            utils.log('info', 'Login attempt started', { email });
+            
+            try {
+                // Simula delay de rede
+                await this.simulateNetworkDelay();
+                
+                const sanitizedEmail = utils.sanitizeInput(email);
+                const user = users[sanitizedEmail];
+                
+                if (!user || user.password !== password) {
+                    throw new Error('Email ou senha incorretos');
+                }
+                
+                // Simula armazenamento de sessão (sem usar localStorage devido às restrições)
+                this.currentUser = {
+                    email: sanitizedEmail,
+                    role: user.role,
+                    loginTime: new Date().toISOString()
+                };
+                
+                utils.log('info', 'Login successful', { 
+                    email: sanitizedEmail, 
+                    role: user.role 
+                });
+                
+                return {
+                    success: true,
+                    message: 'Login realizado com sucesso!',
+                    user: this.currentUser,
+                    redirectTo: user.redirectTo
+                };
+                
+            } catch (error) {
+                utils.log('error', 'Login failed', { email, error: error.message });
+                throw error;
+            }
+        }
+
+        async simulateNetworkDelay() {
+            const delay = Math.random() * 1000 + 1000; // 1-2 segundos
+            return new Promise(resolve => setTimeout(resolve, delay));
+        }
+
+        redirectToPage(url) {
+            utils.log('info', 'Redirecting to page', { url });
+            
+            // Animação de saída suave
+            document.body.style.transition = 'opacity 0.3s ease';
+            document.body.style.opacity = '0';
+            
+            setTimeout(() => {
+                window.location.href = url;
+            }, 300);
+        }
+
+        logout() {
+            this.currentUser = null;
+            utils.log('info', 'User logged out');
+        }
+    }
+
+    // Instâncias das classes
+    const validator = new FormValidator();
+    const ui = new UIManager();
+    const auth = new AuthManager();
+
+    // Validação em tempo real (com debounce)
+    const debouncedValidation = utils.debounce((input) => {
         const email = emailInput.value.trim();
         const password = passwordInput.value.trim();
         
-        // Remove classes de erro anteriores
-        emailInput.classList.remove('error');
-        passwordInput.classList.remove('error');
-        
-        let isValid = true;
-        
-        // Validação do email
-        if (!email) {
-            showError(emailInput, 'Email é obrigatório');
-            isValid = false;
-        } else if (!isValidEmail(email)) {
-            showError(emailInput, 'Email inválido');
-            isValid = false;
-        }
-        
-        // Validação da senha
-        if (!password) {
-            showError(passwordInput, 'Senha é obrigatória');
-            isValid = false;
-        } else if (password.length < 6) {
-            showError(passwordInput, 'Senha deve ter pelo menos 6 caracteres');
-            isValid = false;
-        }
-        
-        return isValid;
-    }
-
-    // Função para mostrar erro
-    function showError(input, message) {
-        input.classList.add('error');
-        
-        // Remove erro anterior se existir
-        const existingError = input.parentNode.querySelector('.error-message');
-        if (existingError) {
-            existingError.remove();
-        }
-        
-        // Cria nova mensagem de erro
-        const errorDiv = document.createElement('div');
-        errorDiv.className = 'error-message';
-        errorDiv.textContent = message;
-        input.parentNode.appendChild(errorDiv);
-        
-        // Remove erro após 5 segundos
-        setTimeout(() => {
-            if (errorDiv.parentNode) {
-                errorDiv.remove();
+        if (input === emailInput && email) {
+            const emailError = validator.validateEmail(email);
+            if (emailError) {
+                ui.showError(emailInput, emailError);
+            } else {
+                ui.clearError(emailInput);
             }
-            input.classList.remove('error');
-        }, 5000);
-    }
-
-    // Função para mostrar loading
-    function showLoading() {
-        const originalText = loginBtn.textContent;
-        loginBtn.textContent = 'Entrando...';
-        loginBtn.disabled = true;
-        loginBtn.style.opacity = '0.7';
+        }
         
-        return () => {
-            loginBtn.textContent = originalText;
-            loginBtn.disabled = false;
-            loginBtn.style.opacity = '1';
-        };
-    }
-
-    // Função para simular login
-    function simulateLogin(email, password) {
-        return new Promise((resolve, reject) => {
-            // Simula tempo de resposta do servidor
-            setTimeout(() => {
-                // Credenciais de exemplo (em um app real, isso seria validado no backend)
-                if (email === 'user@gmail.com' && password === '123456') {
-                    resolve({ success: true, message: 'Login realizado com sucesso!' });
-                } else {
-                    reject({ success: false, message: 'Email ou senha incorretos.' });
-                }
-            }, 2000);
-        });
-    }
-
-    // Função para mostrar mensagem de sucesso
-    function showSuccess(message) {
-        const successDiv = document.createElement('div');
-        successDiv.className = 'success-message';
-        successDiv.textContent = message;
-        successDiv.style.cssText = `
-            background: #22c55e;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            text-align: center;
-            font-weight: 500;
-            animation: slideIn 0.3s ease;
-        `;
-        
-        loginForm.insertBefore(successDiv, loginForm.firstChild);
-        
-        // Remove mensagem após 3 segundos
-        setTimeout(() => {
-            if (successDiv.parentNode) {
-                successDiv.remove();
+        if (input === passwordInput && password) {
+            const passwordError = validator.validatePassword(password);
+            if (passwordError) {
+                ui.showError(passwordInput, passwordError);
+            } else {
+                ui.clearError(passwordInput);
             }
-        }, 3000);
-    }
+        }
+    }, 500);
 
-    // Event listener para o formulário
+    // Event Listeners
     loginForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        if (!validateForm()) {
+        const email = emailInput.value.trim();
+        const password = passwordInput.value.trim();
+        
+        // Limpa erros anteriores
+        ui.clearAllErrors();
+        
+        // Validação completa
+        if (!validator.validateForm(email, password)) {
+            const errors = validator.getErrors();
+            
+            if (errors.has('email')) {
+                ui.showError(emailInput, errors.get('email'));
+            }
+            if (errors.has('password')) {
+                ui.showError(passwordInput, errors.get('password'));
+            }
+            
+            utils.log('warn', 'Form validation failed', Object.fromEntries(errors));
             return;
         }
         
-        const email = emailInput.value.trim();
-        const password = passwordInput.value.trim();
-        const hideLoading = showLoading();
+        // Mostra loading
+        const hideLoading = ui.showLoading();
         
         try {
-            const result = await simulateLogin(email, password);
+            const result = await auth.login(email, password);
             hideLoading();
-            showSuccess(result.message);
             
-            // Redirecionar ou fazer outras ações após login bem-sucedido
+            ui.showSuccess(result.message);
+            
+            // Redireciona baseado no tipo de usuário
             setTimeout(() => {
-                console.log('Redirecionando para dashboard...');
-                // window.location.href = '/dashboard';
+                auth.redirectToPage(result.redirectTo);
             }, 2000);
             
         } catch (error) {
             hideLoading();
-            showError(passwordInput, error.message);
+            ui.showError(passwordInput, error.message);
         }
     });
 
-    // Event listener para "Esqueceu a senha?"
+    // Recuperação de senha melhorada
     forgotPasswordLink.addEventListener('click', function(e) {
         e.preventDefault();
         
         const email = emailInput.value.trim();
+        
         if (!email) {
-            showError(emailInput, 'Digite seu email primeiro');
+            ui.showError(emailInput, 'Digite seu email primeiro');
             return;
         }
         
-        if (!isValidEmail(email)) {
-            showError(emailInput, 'Email inválido');
+        if (!utils.isValidEmail(email)) {
+            ui.showError(emailInput, 'Email inválido');
             return;
         }
         
-        // Simula envio de email de recuperação
-        alert(`Email de recuperação enviado para: ${email}`);
-    });
-
-    // Adiciona efeito de foco nos inputs
-    [emailInput, passwordInput].forEach(input => {
-        input.addEventListener('focus', function() {
-            this.parentNode.classList.add('focused');
+        // Simula envio de email com feedback melhor
+        const modal = document.createElement('div');
+        modal.className = 'recovery-modal';
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3>Email de Recuperação Enviado</h3>
+                <p>Um email com instruções para redefinir sua senha foi enviado para:</p>
+                <strong>${email}</strong>
+                <p><small>Verifique sua caixa de entrada e spam.</small></p>
+                <button class="modal-close">Entendi</button>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        modal.querySelector('.modal-close').addEventListener('click', () => {
+            modal.remove();
         });
         
-        input.addEventListener('blur', function() {
-            this.parentNode.classList.remove('focused');
-        });
+        utils.log('info', 'Password recovery requested', { email });
     });
 
-    // Remove erros quando o usuário começar a digitar
+    // Efeitos de foco melhorados
     [emailInput, passwordInput].forEach(input => {
-        input.addEventListener('input', function() {
-            if (this.classList.contains('error')) {
-                this.classList.remove('error');
-                const errorMessage = this.parentNode.querySelector('.error-message');
-                if (errorMessage) {
-                    errorMessage.remove();
-                }
+        input.addEventListener('focus', () => ui.animateInputFocus(input, true));
+        input.addEventListener('blur', () => ui.animateInputFocus(input, false));
+        
+        // Validação em tempo real
+        input.addEventListener('input', (e) => {
+            ui.clearError(input);
+            debouncedValidation(input);
+        });
+        
+        // Teclas especiais
+        input.addEventListener('keydown', function(e) {
+            // Enter no email move para senha
+            if (e.key === 'Enter' && input === emailInput) {
+                e.preventDefault();
+                passwordInput.focus();
             }
         });
     });
 
-    // Adiciona animação de entrada
+    // Detecção de Caps Lock
+    [emailInput, passwordInput].forEach(input => {
+        input.addEventListener('keyup', function(e) {
+            if (e.getModifierState && e.getModifierState('CapsLock')) {
+                ui.showError(input, 'Caps Lock está ativo');
+            }
+        });
+    });
+
+    // Animação de entrada da página
     setTimeout(() => {
         document.body.classList.add('loaded');
     }, 100);
+
+    // Detecta tentativas de força bruta (básico)
+    let loginAttempts = 0;
+    const maxAttempts = 3;
+    
+    loginForm.addEventListener('submit', function() {
+        loginAttempts++;
+        
+        if (loginAttempts >= maxAttempts) {
+            ui.showError(passwordInput, `Muitas tentativas. Aguarde ${30} segundos.`);
+            loginBtn.disabled = true;
+            
+            setTimeout(() => {
+                loginAttempts = 0;
+                loginBtn.disabled = false;
+            }, 30000);
+        }
+    });
+
+    utils.log('info', 'Login page initialized successfully');
 });
 
-// CSS adicional via JavaScript para efeitos
-const additionalStyles = `
+// Estilos CSS melhorados via JavaScript
+const enhancedStyles = `
     .error {
         border-color: #ef4444 !important;
         box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+        animation: shake 0.3s ease;
     }
     
     .error-message {
@@ -215,11 +444,83 @@ const additionalStyles = `
         font-size: 0.875rem;
         margin-top: 8px;
         padding-left: 4px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+    
+    .error-message::before {
+        content: "⚠️";
+        font-size: 12px;
     }
     
     .input-group.focused {
         transform: scale(1.02);
         transition: transform 0.2s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .login-btn.loading {
+        position: relative;
+        opacity: 0.8;
+        cursor: not-allowed;
+    }
+    
+    .loading-spinner {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 2px solid #ffffff;
+        border-radius: 50%;
+        border-top-color: transparent;
+        animation: spin 1s ease-in-out infinite;
+        margin-right: 8px;
+    }
+    
+    .recovery-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        animation: fadeIn 0.3s ease;
+    }
+    
+    .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        max-width: 400px;
+        margin: 20px;
+        animation: slideIn 0.3s ease;
+    }
+    
+    .modal-content h3 {
+        margin-bottom: 16px;
+        color: #1f2937;
+    }
+    
+    .modal-close {
+        background: #3b82f6;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 16px;
+        font-weight: 500;
+        transition: background 0.2s ease;
+    }
+    
+    .modal-close:hover {
+        background: #2563eb;
     }
     
     body {
@@ -241,11 +542,35 @@ const additionalStyles = `
             opacity: 1;
         }
     }
+    
+    @keyframes slideOut {
+        from {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        to {
+            transform: translateY(-20px);
+            opacity: 0;
+        }
+    }
+    
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        75% { transform: translateX(5px); }
+    }
 `;
 
-// Adiciona os estilos ao head
+// Adiciona os estilos melhorados
 const styleSheet = document.createElement('style');
-styleSheet.textContent = additionalStyles;
+styleSheet.textContent = enhancedStyles;
 document.head.appendChild(styleSheet);
-
-console.log('Login page loaded successfully!');
