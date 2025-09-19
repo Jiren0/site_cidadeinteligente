@@ -5,98 +5,238 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kefi - Sua Cidade Inteligente</title>
     <link rel="stylesheet" href="assets/css/pages/index/pageinicial.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <!-- Seção de conteúdo principal -->
-        <div class="content-section">
-            <div class="content-wrapper">
-                <h1 class="main-title">
-                    Seja bem-vindo ao site da Kefi, sua cidade inteligente.
-                </h1>
-                
-                <p class="description">
-                    Um espaço digital criado para conectar pessoas, 
-                    tecnologia e serviços. Explore como nossa cidade 
-                    inteligente transforma o dia a dia em praticidade e 
-                    inovação.
-                </p>
-                
-                <button class="cta-button" id="startButton">
-                    COMECE AGORA
-                </button>
+    <!-- Partículas de fundo -->
+    <div class="particles" id="particles"></div>
+    
+    <!-- Navegação -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h3>KEFI</h3>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link active">Início</a>
+                <a href="#about" class="nav-link">Sobre</a>
+                <a href="#services" class="nav-link">Serviços</a>
+                <a href="#contact" class="nav-link">Contato</a>
             </div>
         </div>
-        
-        <!-- Seção do slider -->
-        <div class="slider-section">
-            <div class="slider-container">
-                <h2 class="slider-title">Imagens da Cidade:</h2>
+    </nav>
+
+    <div class="container">
+        <!-- Seção Hero -->
+        <section class="hero-section" id="home">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">🚀</span>
+                    <span class="badge-text">Cidade do Futuro</span>
+                </div>
                 
-                <div class="slider-wrapper">
-                    <div class="slider-track" id="sliderTrack">
-                        <div class="slide active">
-                            <div class="slide-content">
-                                <div class="slide-image">
-                                    <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=400&h=300&fit=crop" alt="Imagem 1" class="slider-img">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content">
-                                <div class="slide-image">
-                                    <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1f?w=400&h=300&fit=crop" alt="Imagem 2" class="slider-img">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content">
-                                <div class="slide-image">
-                                    <img src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=400&h=300&fit=crop" alt="Imagem 3" class="slider-img">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content">
-                                <div class="slide-image">
-                                    <img src="https://images.unsplash.com/photo-1573804633927-bfcbcd909acd?w=400&h=300&fit=crop" alt="Imagem 4" class="slider-img">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="slide">
-                            <div class="slide-content">
-                                <div class="slide-image">
-                                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop" alt="Imagem 5" class="slider-img">
-                                </div>
-                            </div>
-                        </div>
+                <h1 class="hero-title">
+                    Seja bem-vindo ao
+                    <span class="gradient-text">KEFI</span>
+                </h1>
+                
+                <h2 class="hero-subtitle">
+                    Sua Cidade Inteligente
+                </h2>
+                
+                <p class="hero-description">
+                    Um ecossistema digital inovador que conecta pessoas, tecnologia e serviços urbanos. 
+                    Descubra como nossa plataforma inteligente está revolucionando a experiência urbana 
+                    através de soluções sustentáveis e conectadas.
+                </p>
+                
+                <div class="hero-buttons">
+                    <button class="cta-primary" id="startButton">
+                        <span class="btn-text">Explorar Agora</span>
+                        <span class="btn-icon">→</span>
+                    </button>
+                    
+                    <button class="cta-secondary" id="learnMore">
+                        <span class="btn-icon">▶</span>
+                        <span class="btn-text">Assistir Demo</span>
+                    </button>
+                </div>
+                
+                <!-- Estatísticas -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="150">0</div>
+                        <div class="stat-label">Mil Usuários</div>
                     </div>
-                    
-                    <!-- Controles do slider -->
-                    <button class="slider-btn prev-btn" id="prevBtn">‹</button>
-                    <button class="slider-btn next-btn" id="nextBtn">›</button>
-                    
-                    <!-- Indicadores -->
-                    <div class="slider-indicators">
-                        <span class="indicator active" data-slide="0"></span>
-                        <span class="indicator" data-slide="1"></span>
-                        <span class="indicator" data-slide="2"></span>
-                        <span class="indicator" data-slide="3"></span>
-                        <span class="indicator" data-slide="4"></span>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="98">0</div>
+                        <div class="stat-label">% Satisfação</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="24">0</div>
+                        <div class="stat-label">Suporte 24/7</div>
                     </div>
                 </div>
+            </div>
+        </section>
+        
+        <!-- Seção do Slider -->
+        <section class="showcase-section">
+            <div class="showcase-container">
+                <div class="section-header">
+                    <h2 class="section-title">Explore Nossa Cidade</h2>
+                    <p class="section-description">
+                        Descubra os diferentes aspectos da nossa cidade inteligente
+                    </p>
+                </div>
+                
+                <div class="slider-wrapper">
+                    <div class="slider-container">
+                        <div class="slider-track" id="sliderTrack">
+                            <div class="slide active" data-bg="#3b82f6">
+                                <div class="slide-content">
+                                    <div class="slide-visual">
+                                        <div class="slide-icon">🏢</div>
+                                        <div class="slide-glow"></div>
+                                    </div>
+                                    <h3 class="slide-title">Centro Urbano</h3>
+                                    <p class="slide-description">
+                                        Coração tecnológico da cidade com edifícios inteligentes e infraestrutura conectada
+                                    </p>
+                                    <div class="slide-features">
+                                        <span class="feature">IoT Integrado</span>
+                                        <span class="feature">Energia Limpa</span>
+                                        <span class="feature">5G Nativo</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="slide" data-bg="#8b5cf6">
+                                <div class="slide-content">
+                                    <div class="slide-visual">
+                                        <div class="slide-icon">🌳</div>
+                                        <div class="slide-glow"></div>
+                                    </div>
+                                    <h3 class="slide-title">Áreas Verdes</h3>
+                                    <p class="slide-description">
+                                        Espaços sustentáveis com monitoramento ambiental em tempo real
+                                    </p>
+                                    <div class="slide-features">
+                                        <span class="feature">Ar Puro</span>
+                                        <span class="feature">Biodiversidade</span>
+                                        <span class="feature">Sensores Eco</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="slide" data-bg="#10b981">
+                                <div class="slide-content">
+                                    <div class="slide-visual">
+                                        <div class="slide-icon">🚊</div>
+                                        <div class="slide-glow"></div>
+                                    </div>
+                                    <h3 class="slide-title">Transporte</h3>
+                                    <p class="slide-description">
+                                        Sistema de mobilidade inteligente e autônomo para todos
+                                    </p>
+                                    <div class="slide-features">
+                                        <span class="feature">Autônomo</span>
+                                        <span class="feature">Zero Emissão</span>
+                                        <span class="feature">IA Otimizada</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="slide" data-bg="#f59e0b">
+                                <div class="slide-content">
+                                    <div class="slide-visual">
+                                        <div class="slide-icon">🏠</div>
+                                        <div class="slide-glow"></div>
+                                    </div>
+                                    <h3 class="slide-title">Habitação</h3>
+                                    <p class="slide-description">
+                                        Residências inteligentes com automação completa e eficiência energética
+                                    </p>
+                                    <div class="slide-features">
+                                        <span class="feature">Casa Conectada</span>
+                                        <span class="feature">Segurança IA</span>
+                                        <span class="feature">Economia</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="slide" data-bg="#ef4444">
+                                <div class="slide-content">
+                                    <div class="slide-visual">
+                                        <div class="slide-icon">🏥</div>
+                                        <div class="slide-glow"></div>
+                                    </div>
+                                    <h3 class="slide-title">Saúde Digital</h3>
+                                    <p class="slide-description">
+                                        Cuidados médicos preventivos com IA e telemedicina avançada
+                                    </p>
+                                    <div class="slide-features">
+                                        <span class="feature">IA Médica</span>
+                                        <span class="feature">Prevenção</span>
+                                        <span class="feature">24/7 Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Controles -->
+                        <button class="slider-btn prev-btn" id="prevBtn">
+                            <span>←</span>
+                        </button>
+                        <button class="slider-btn next-btn" id="nextBtn">
+                            <span>→</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Indicadores modernos -->
+                    <div class="slider-indicators">
+                        <button class="indicator active" data-slide="0"></button>
+                        <button class="indicator" data-slide="1"></button>
+                        <button class="indicator" data-slide="2"></button>
+                        <button class="indicator" data-slide="3"></button>
+                        <button class="indicator" data-slide="4"></button>
+                    </div>
+                    
+                    <!-- Progresso -->
+                    <div class="slider-progress">
+                        <div class="progress-bar" id="progressBar"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Modal de Loading -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>Entrando no KEFI</h3>
+            <p>Preparando sua experiência...</p>
+            <div class="loading-progress">
+                <div class="progress-fill"></div>
             </div>
         </div>
     </div>
 
-    <!-- Footer com ano -->
-    <div class="footer">
-        <span>2025 - 2028</span>
-    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-info">
+                <h4>KEFI</h4>
+                <p>Construindo o futuro das cidades inteligentes</p>
+            </div>
+            <div class="footer-year">
+                <span>2025</span>
+            </div>
+        </div>
+    </footer>
 
     <script src="assets/js/pages/pageinicial.js"></script>
 </body>
