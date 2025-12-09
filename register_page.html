@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="assets/css/pages/register/register.css">
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Crie sua conta e comece agora</h1>
+        </div>
+        
+        <div class="register-section">
+            <div class="register-card">
+                <h2>Cadastro</h2>
+                <p class="subtitle">Preencha os dados abaixo para criar sua conta.</p>
+                
+                <form id="registerForm" class="register-form">
+                    <div class="input-group">
+                        <input type="text" id="name" name="name" placeholder="Nome completo" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="email" id="email" name="email" placeholder="Gmail" required>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" placeholder="Senha" required>
+                        <div class="password-strength">
+                            <div class="password-strength-bar" id="strengthBar"></div>
+                        </div>
+                        <div class="password-strength-text" id="strengthText"></div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirmar senha" required>
+                    </div>
+                    
+                    <button type="submit" class="register-btn">Cadastrar</button>
+                    
+                    <a href="login.html" class="login-link">Já tem uma conta? <span>Faça login</span></a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/js/pages/register.js"></script>
+</body>
+</html>

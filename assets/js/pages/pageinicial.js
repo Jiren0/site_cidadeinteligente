@@ -1,9 +1,3 @@
-/**
- * KEFI - Sistema de Página Inicial Inteligente
- * Versão: 2.0
- * Autor: Sistema KEFI
- */
-
 class KefiHomepage {
     constructor() {
         this.currentSlide = 0;
@@ -546,7 +540,7 @@ window.addEventListener('load', () => {
 
 // Preload de recursos críticos
 const preloadResources = [
-    'login.html',
+    'dashboardadmin.html',
     // Adicione outros recursos que precisam ser pré-carregados
 ];
 
