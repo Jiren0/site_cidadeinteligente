@@ -1,0 +1,82 @@
+/* Estilo geral da página */
+body {
+    background: #f0f0f0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+/* Caixa principal */
+.container {
+    background: white;
+    width: 450px;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+/* Área dos inputs */
+.input-area {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Inputs */
+input {
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+/* Botão */
+button {
+    background: #28a745;
+    border: none;
+    padding: 10px;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+button:hover {
+    background: #1e7e34;
+}
+
+/* Lista */
+ul {
+    margin-top: 20px;
+    padding: 0;
+    list-style: none;
+}
+
+/* Cada usuário */
+li {
+    background: #e6e6e6;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* Linha de conteúdo */
+.user-info {
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+/* Botão remover */
+.remove-btn {
+    background: red;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    background: darkred;
+}

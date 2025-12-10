@@ -1,0 +1,309 @@
+.<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/pages/dashboard.segurança.admin/style.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Sidebar/Menulateral -->
+        <aside>
+            <div class="toggle">
+                <div class="logo">
+                    <img src="assets/img/logo.png">
+                    <h2>Policia<span class="danger">Militar</span></h2>
+                </div>
+                <div class="close" id="close-btn">
+                    <span class="material-icons-sharp">
+                        close
+                    </span>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <a href="cliente_segurança.html">
+                    <span class="material-icons-sharp">
+                        dashboard
+                    </span>
+                    <h3>Site do cliente</h3>
+                </a>
+                <a href="users.html">
+                    <span class="material-icons-sharp">
+                        person_outline
+                    </span>
+                    <h3>Usuários</h3>
+                </a>
+                <a href="localiza.html">
+                    <span class="material-icons-sharp">
+                        receipt_long
+                    </span>
+                    <h3>Gerenciar</h3>
+                </a>
+                <a href="dev.html" class="active">
+                    <span class="material-icons-sharp">
+                        insights
+                    </span>
+                    <h3>Dashboard</h3>
+                </a>
+                <a href="dev.html">
+                    <span class="material-icons-sharp">
+                        mail_outline
+                    </span>
+                    <h3>Menssagens</h3>
+                    <span class="message-count">27</span>
+                </a>
+                <a href="dev.html">
+                    <span class="material-icons-sharp">
+                        inventory
+                    </span>
+                    <h3>Inventário</h3>
+                </a>
+                <a href="dev.html">
+                    <span class="material-icons-sharp">
+                        report_gmailerrorred
+                    </span>
+                    <h3>Reportar</h3>
+                </a>
+                <a href="dev.html">
+                    <span class="material-icons-sharp">
+                        settings
+                    </span>
+                    <h3>Configuarações</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        add
+                    </span>
+                    <h3>Novo Login</h3>
+                </a>
+                <a href="#">
+                    <span class="material-icons-sharp">
+                        logout
+                    </span>
+                    <h3>Sair</h3>
+                </a>
+            </div>
+        </aside>
+        <!-- Fim do sidebar/Menu lateral -->
+
+        <!-- Percentuais -->
+        <main>
+            <h1>Analises</h1>
+            
+            <div class="analyse">
+                <div class="sales">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Crimes/Denuncias resolvidos</h3>
+                            <h1>65,024</h1>
+                        </div>
+                        <div class="progresss">
+                            <svg>
+                                <circle cx="38" cy="38" r="36"></circle>
+                            </svg>
+                            <div class="percentage">
+                                <p>81%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="visits">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Usuários online</h3>
+                            <h1>24,981</h1>
+                        </div>
+                        <div class="progresss">
+                            <svg>
+                                <circle cx="38" cy="38" r="36"></circle>
+                            </svg>
+                            <div class="percentage">
+                                <p>48%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="searches">
+                    <div class="status">
+                        <div class="info">
+                            <h3>Crimes/Denuncias Enviados agora</h3>
+                            <h1>14,147</h1>
+                        </div>
+                        <div class="progresss">
+                            <svg>
+                                <circle cx="38" cy="38" r="36"></circle>
+                            </svg>
+                            <div class="percentage">
+                                <p>21%</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim dos percentuais -->
+
+            <!-- Parte dos usuários -->
+            <div class="new-users">
+                <h2>Delegados</h2>
+                <div class="user-list">
+                    <div class="user">
+                        <img src="assets/img/perfil1.png">
+                        <h2>Robson</h2>
+                        <p>Online há 2 min</p>
+                    </div>
+                    <div class="user">
+                        <img src="assets/img/perfil2.png">
+                        <h2>Alberto</h2>
+                        <p>Online Agora</p>
+                    </div>
+                    <div class="user">
+                        <img src="assets/img/Perfil3.png">
+                        <h2>Cesar</h2>
+                        <p>Online há 1 min</p>
+                    </div>
+                    <div class="user">
+                        <img src="assets/img/plus.png">
+                        <h2>Mais</h2>
+                        <p>Mostrar mais usários</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Fim da parte de usuários -->
+
+            <!-- Denúncias recentes -->
+            <div class="recent-orders">
+                <h2>Denúncias recentes</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Quem denunciou</th>
+                            <th>Id</th>
+                            <th>Crime ocorrido</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+                <a href="#">Mostrar tudo</a>
+            </div>
+            <!-- fim das Denúncias recentes -->
+
+        </main>
+        <!-- Fm do menu -->
+
+        <!-- Seção superior -->
+        <div class="right-section">
+            <div class="nav">
+                <button id="menu-btn">
+                    <span class="material-icons-sharp">
+                        menu
+                    </span>
+                </button>
+                <div class="dark-mode">
+                    <span class="material-icons-sharp active">
+                        light_mode
+                    </span>
+                    <span class="material-icons-sharp">
+                        dark_mode
+                    </span>
+                </div>
+
+                <div class="profile">
+                    <div class="info">
+                        <p>Olá, <b>Admin</b></p>
+                        <small class="text-muted">Admin</small>
+                    </div>
+                    <div class="profile-photo">
+                        <img src="assets/img/admin.jpg">
+                    </div>
+                </div>
+
+            </div>
+            <!-- FIm da seção superior -->
+
+            <!-- logo maior -->
+            <div class="user-profile">
+                <div class="logo">
+                    <img src="assets/img/logo.png">
+                    <h2>Policia militar de keif</h2>
+                    <p>Segura e inteligente</p>
+                </div>
+            </div>
+            <!-- final logo maior -->
+            
+            
+            <!-- Funções -->
+            <div class="reminders">
+                <div class="header">
+                    <h2>Funções</h2>
+                    <span class="material-icons-sharp">
+                        notifications_none
+                    </span>
+                </div>
+
+                <div class="notification">
+                    <div class="icon">
+                        <span class="material-icons-sharp">
+                            volume_up
+                        </span>
+                    </div>
+                    <div class="content">
+                        <div class="info">
+                            <h3>Ligar rádio</h3>
+                            <small class="text_muted">
+                                Fale com os policiais.
+                            </small>
+                        </div>
+                        <span class="material-icons-sharp">
+                            more_vert
+                        </span>
+                    </div>
+                </div>
+
+                <div class="notification deactive">
+                    <div class="icon">
+                        <span class="material-icons-sharp">
+                            edit
+                        </span>
+                    </div>
+                    <div class="content">
+                        <div class="info">
+                            <h3>Personalizar guarda robô</h3>
+                            <small class="text_muted">
+                                Caso precise de manutenções ou melhorias.
+                            </small>
+                        </div>
+                        <span class="material-icons-sharp">
+                            more_vert
+                        </span>
+                    </div>
+                </div>
+
+                <div class="notification add-reminder">
+                    <div>
+                        <span class="material-icons-sharp">
+                            add
+                        </span>
+                        <h3>Adicionar funções</h3>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+        <!-- Fim das funções -->
+    <script src="assets/js/pages/orders.js"></script>
+    <script src="assets/js/pages/index.js"></script>
+</body>
+
+</html>

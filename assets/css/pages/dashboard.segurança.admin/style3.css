@@ -1,0 +1,59 @@
+/* Variáveis globais (largura do painel e cor de destaque) */
+:root{--panel-width:360px;--accent:#0b5ed7}
+
+/* Define altura total e remove margens padrão */
+html,body,#map{height:100%;margin:0}
+
+/* Estilo base do body, com fonte do sistema e fundo neutro */
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial;background:#f4f6f8}
+
+/* Contêiner principal dividido entre mapa e sidebar */
+#app{display:flex;height:100vh}
+
+/* O mapa ocupa todo o espaço restante */
+#map{flex:1}
+
+/* Barra lateral fixa com sombra e rolagem */
+#sidebar{width:var(--panel-width);background:#fff;padding:16px;box-shadow:0 0 12px rgba(10,10,10,0.08);overflow:auto}
+
+/* Títulos da sidebar */
+h2{margin:6px 0 12px;font-size:18px}
+
+/* Botão principal com cor de destaque */
+.btn{display:inline-block;padding:8px 10px;border-radius:8px;border:0;background:var(--accent);color:#fff;cursor:pointer}
+
+/* Texto pequeno */
+.small{font-size:13px}
+
+/* Lista de itens */
+.list{margin-top:12px}
+
+/* Cartões de itens */
+.item{padding:8px;border-radius:8px;border:1px solid #eee;margin-bottom:8px;background:#fafafa}
+
+/* Texto secundário (informações complementares) */
+.meta{font-size:13px;color:#555}
+
+/* Indicadores de bateria */
+.battery{font-weight:600}
+.battery.good{color:green}       /* Bateria alta */
+.battery.warn{color:orange}      /* Bateria média */
+.battery.low{color:red}          /* Bateria baixa */
+
+/* Linha de botões ou controles */
+.controls{display:flex;gap:8px;margin-top:6px}
+
+/* Linha de busca com input + botão */
+.search-row{display:flex;gap:8px;margin-bottom:8px}
+
+/* Campo de entrada estilizado */
+.input{flex:1;padding:8px;border-radius:8px;border:1px solid #ddd}
+
+/* Rodapé da sidebar */
+footer{font-size:12px;color:#666;margin-top:12px}
+
+/* Estilo dos marcadores de robôs no mapa */
+.marker-robot{background:#fff;border-radius:6px;padding:6px;border:2px solid #0b5ed7}
+
+/* Pontinho de status do robô (online/offline) */
+.status-dot{width:10px;height:10px;border-radius:50%;display:inline-block;margin-right:6px}

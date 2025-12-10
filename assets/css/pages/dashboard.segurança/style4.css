@@ -1,0 +1,80 @@
+/* Estilo geral */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #e8f0ff;
+    color: #0a1e4f;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #0a1e4f;
+    color: white;
+    text-align: center;
+    padding: 30px 20px;
+}
+
+.logo {
+    width: 150px;
+    margin-bottom: 10px;
+}
+
+/* Caixas de conteúdo */
+.sobre, .formulario, .dashboard {
+    max-width: 900px;
+    margin: 30px auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #0002;
+}
+
+/* Títulos */
+h2 {
+    color: #0a1e4f;
+    margin-bottom: 15px;
+}
+
+/* Formulário */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+input, select, textarea {
+    padding: 10px;
+    border: 2px solid #0a1e4f;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+/* Botão */
+button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #0a1e4f;
+    color: white;
+    border: none;
+    font-size: 17px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+button:hover {
+    background-color: #12357D;
+}
+
+/* Dashboard cards */
+.card {
+    background: #f7f9ff;
+    padding: 15px;
+    border: 2px solid #0a1e4f;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}

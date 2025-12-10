@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Banking Dashboard</title>
+  <!-- Fonte principal -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Tailwind via CDN (não obrigatório de uso, apenas disponível) -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="assets/css/pages/bank/style_bank.css" />
+
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Estrutura principal do dashboard -->
+    <div class="dashboard" id="dashboard">
+      <aside class="sidebar" aria-label="Navegação principal">
+        <div class="sidebar-header">
+          <div class="sidebar-logo" aria-hidden="true">BV</div>
+          <div class="sidebar-title">
+            <span>Kefi Banco</span>
+            <span>Admin Dashboard</span>
+          </div>
+        </div>
+        <nav class="sidebar-nav" aria-label="Menu">
+          <ul>
+            <li>
+              <button class="sidebar-item-btn is-active" type="button" aria-label="Dashboard">
+                <span class="sidebar-icon" aria-hidden="true">🏠</span>
+                <span class="nav-label">Dashboard</span>
+              </button>
+            </li>
+            <li>
+              <button class="sidebar-item-btn" type="button" aria-label="Transactions">
+                <span class="sidebar-icon" aria-hidden="true">💳</span>
+                <span class="nav-label">Transações</span>
+              </button>
+            </li>
+            <li>
+              <button class="sidebar-item-btn" type="button" aria-label="Card Center">
+                <span class="sidebar-icon" aria-hidden="true">💼</span>
+                <span class="nav-label">Central de cartões</span>
+              </button>
+            </li>
+            <li>
+              <button class="sidebar-item-btn" type="button" aria-label="Contacts">
+                <span class="sidebar-icon" aria-hidden="true">👥</span>
+                <span class="nav-label">Contatos</span>
+              </button>
+            </li>
+            <li>
+              <button class="sidebar-item-btn" type="button" aria-label="E-Wallet">
+                <span class="sidebar-icon" aria-hidden="true">👛</span>
+                <span class="nav-label">Carteira eletrônica</span>
+              </button>
+            </li>
+            <li>
+              <button class="sidebar-item-btn" type="button" aria-label="Reports">
+                <span class="sidebar-icon" aria-hidden="true">📊</span>
+                <span class="nav-label">Relatórios</span>
+              </button>
+            </li>
+            <li>
+              <button class="sidebar-item-btn" type="button" aria-label="Settings">
+                <span class="sidebar-icon" aria-hidden="true">⚙️</span>
+                <span class="nav-label">Configurações</span>
+              </button>
+            </li>
+            <li>
+              <button class="sidebar-item-btn" type="button" aria-label="Help">
+                <span class="sidebar-icon" aria-hidden="true">❓</span>
+                <span class="nav-label">Ajuda</span>
+              </button>
+            </li>
+          </ul>
+        </nav>
+        <div class="sidebar-footer">
+          <p>Logged in as <strong id="sidebar-user-name">Admin</strong></p>
+          <p style="margin-top: 0.25rem;">Secure Banking Suite</p>
+        </div>
+      </aside>
+
+      <div class="dashboard-main">
+        <header class="dashboard-header">
+          <div class="header-left">
+            <p class="header-welcome">Olá, <strong id="user-name">Usuário</strong></p>
+            <p class="header-subtitle">Visão geral da sua conta bancária</p>
+          </div>
+          <div class="header-right">
+            <button class="icon-button sidebar-toggle-desktop" id="sidebar-toggle" type="button" aria-label="Alternar menu lateral">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M4 7h16M4 12h12M4 17h16" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            </button>
+            <button class="icon-button" id="theme-toggle" type="button" aria-label="Alternar modo claro ou escuro" aria-pressed="false">
+              <svg id="theme-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 3.1A1 1 0 0 1 13 4v2a1 1 0 1 1-2 0V4a1 1 0 0 1 1-0.9zm6.36 3.54a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 1 1-1.41-1.42l1.41-1.41a1 1 0 0 1 1.42 0zM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8zm8 3a1 1 0 0 1 0 2h-2a1 1 0 1 1 0-2h2zm-4.05 6.05a1 1 0 0 1 1.41 0l1.42 1.41a1 1 0 0 1-1.41 1.42l-1.42-1.42a1 1 0 0 1 0-1.41zM12 18a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1zm-7.36-2.95a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 1 1-1.41 1.41L4.64 16.5a1 1 0 0 1 0-1.41zM4 11a1 1 0 0 1 0 2H2a1 1 0 0 1 0-2h2zm1.64-5.36a1 1 0 0 1 1.41 0l1.42 1.41A1 1 0 0 1 7.05 8.5L5.64 7.09a1 1 0 0 1 0-1.41z" fill="currentColor" />
+              </svg>
+            </button>
+            <button class="icon-button" type="button" aria-label="Notificações">
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 3a5 5 0 0 0-5 5v2.764c0 .55-.22 1.078-.61 1.469L5.1 13.523A1 1 0 0 0 5.81 15h12.38a1 1 0 0 0 .71-1.707l-1.29-1.29A2.08 2.08 0 0 1 17 10.764V8a5 5 0 0 0-5-5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M10 18a2 2 0 0 0 4 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            </button>
+            <div class="avatar" aria-label="Perfil do usuário" id="user-avatar">BV</div>
+          </div>
+        </header>
+
+        <main class="main-layout">
+          <!-- Grid superior: cartão, saldo, despesas -->
+          <section class="top-grid" aria-label="Resumo financeiro">
+            <section class="card" aria-labelledby="debit-card-title">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title" id="debit-card-title">Cartão de Débito:</h2>
+                  <p class="card-subtitle">Gerencie seus cartões e limites em tempo real</p>
+                </div>
+                <span class="badge-muted">Admin / User</span>
+              </div>
+              <div class="debit-card-wrapper">
+                <article class="debit-card" aria-label="Cartão de débito principal">
+                  <div class="debit-card-top">
+                    <div class="debit-chip" aria-hidden="true">
+                      <svg viewBox="0 0 32 24" aria-hidden="true" focusable="false">
+                        <rect x="3" y="5" width="26" height="14" rx="3" ry="3" fill="rgba(15,23,42,0.15)" />
+                        <path d="M6 8h4v8M14 8h4v8M22 8h4" stroke="rgba(248,250,252,0.7)" stroke-width="1.3" stroke-linecap="round" />
+                      </svg>
+                    </div>
+                    <div class="debit-brand">
+                      <span class="brand-mark" aria-hidden="true"></span>
+                      <span id="card-type-label">VISA</span>
+                    </div>
+                  </div>
+                  <p class="debit-card-number" id="card-number">4771 6080 1080 7889</p>
+                  <div class="debit-card-meta">
+                    <div>
+                      <span class="debit-label">Cardholder</span>
+                      <span class="debit-details" id="card-holder">Barly Vallendito</span>
+                    </div>
+                    <div>
+                      <span class="debit-label">Valid Thru</span>
+                      <span class="debit-details" id="card-expiry">08/25</span>
+                    </div>
+                    <div>
+                      <span class="debit-label">Provider</span>
+                      <span class="debit-details" id="card-name">FINCARD</span>
+                    </div>
+                  </div>
+                  <div class="debit-card-footer">
+                    <span>Virtual • Contactless Ready</span>
+                    <span>Secure • 3D Verified</span>
+                  </div>
+                </article>
+                <div class="add-card-row">
+                  <button class="btn-outline" id="add-card-btn" type="button" aria-label="Adicionar novo cartão de débito">
+                    <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="btn-icon-small">
+                      <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                    </svg>
+                    <span>Adicionar cartão de débito</span>
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <section class="card" aria-labelledby="balance-title">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title" id="balance-title">Saldo total:</h2>
+                  <p class="card-subtitle" id="balance-updated">Atualizado em —</p>
+                </div>
+                <span class="badge-muted">Multi-Account</span>
+              </div>
+              <div>
+                <p class="balance-value" id="balance-value">$ 0.00</p>
+                <div class="balance-meta">
+                  <span>Liquidez disponível em todas as carteiras</span>
+                  <span class="pill-positive" aria-label="Variação positiva de hoje">
+                    <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                      <path d="M3 10 7 6l3 3 3-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    +3.8%
+                  </span>
+                </div>
+              </div>
+              <div class="card-actions">
+                <button class="btn-primary" type="button" aria-label="Enviar dinheiro">
+                  <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="btn-icon-small">
+                    <path d="M4 10h10.5M10 4l4.5 6L10 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                  <span>Enviar</span>
+                </button>
+                <button class="btn-outline" type="button" aria-label="Adicionar saldo">
+                  <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="btn-icon-small">
+                    <path d="M10 4v12M4 10h12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                  </svg>
+                  <span>Recarregar</span>
+                </button>
+                <button class="btn-ghost" type="button" aria-label="Mais ações de saldo">
+                  <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="btn-icon-small">
+                    <circle cx="4" cy="10" r="1.2" fill="currentColor" />
+                    <circle cx="10" cy="10" r="1.2" fill="currentColor" />
+                    <circle cx="16" cy="10" r="1.2" fill="currentColor" />
+                  </svg>
+                </button>
+              </div>
+            </section>
+
+            <section class="card card-expenses" aria-labelledby="expenses-title">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title" id="expenses-title">Despesas:</h2>
+                  <p class="card-subtitle">Monitoramento de gastos mensais</p>
+                </div>
+                <span class="badge-muted">Normal Level</span>
+              </div>
+              <div class="expenses-body">
+                <div class="expenses-gauge-wrap">
+                  <svg class="expenses-gauge-svg" viewBox="0 0 100 50" aria-hidden="true" focusable="false">
+                    <path id="gauge-track" d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="rgba(148,163,184,0.35)" stroke-width="8" stroke-linecap="round" />
+                    <path id="gauge-value" d="M10 50 A40 40 0 0 1 90 50" fill="none" stroke="var(--primary)" stroke-width="8" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <div class="expenses-meta">
+                  <div>
+                    <p class="expenses-percentage"><span id="expenses-percent">0</span>%</p>
+                    <p class="card-subtitle">da meta de gastos deste ciclo</p>
+                  </div>
+                  <div class="expenses-legend" aria-label="Resumo de gastos">
+                    <div class="legend-dot-row">
+                      <span class="legend-dot" aria-hidden="true"></span>
+                      <span>Normal Level</span>
+                    </div>
+                    <span class="card-subtitle">Total gasto: <strong id="expenses-total">$ 0.00</strong></span>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </section>
+
+          <!-- Grid inferior: transações recentes e invoices -->
+          <section class="bottom-grid" aria-label="Atividade recente">
+            <section class="card" aria-labelledby="transactions-title">
+              <div class="transactions-header">
+                <div>
+                  <h2 class="card-title" id="transactions-title">Transações recentes:</h2>
+                  <p class="card-subtitle">Fluxo de entradas e saídas por período</p>
+                </div>
+                <div class="filter-group" role="radiogroup" aria-label="Filtrar por período">
+                  <button class="filter-chip" type="button" data-transaction-range="7" aria-pressed="false">7d</button>
+                  <button class="filter-chip is-active" type="button" data-transaction-range="30" aria-pressed="true">30d</button>
+                  <button class="filter-chip" type="button" data-transaction-range="90" aria-pressed="false">90d</button>
+                </div>
+              </div>
+              <ul class="transactions-list" id="transactions-list" aria-live="polite" aria-busy="false">
+                <!-- conteúdo preenchido via JS -->
+              </ul>
+            </section>
+
+            <section class="card" aria-labelledby="invoice-title">
+              <div class="card-header">
+                <div>
+                  <h2 class="card-title" id="invoice-title">Atividade de fatura:</h2>
+                  <p class="card-subtitle">Pagamentos recorrentes e faturas pendentes</p>
+                </div>
+                <button class="btn-outline" type="button" id="export-invoices-btn" aria-label="Exportar invoices para CSV">
+                  <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false" class="btn-icon-small">
+                    <path d="M10 3v10m0 0 3-3m-3 3-3-3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M4 14.5v1.5A1.5 1.5 0 0 0 5.5 17h9A1.5 1.5 0 0 0 16 15.5V14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+                  </svg>
+                  <span>Exportar</span>
+                </button>
+              </div>
+
+              <div class="invoice-controls">
+                <label class="visually-hidden" for="invoice-search">Buscar invoice</label>
+                <input id="invoice-search" class="search-input" type="search" placeholder="Buscar por #invoice ou destinatário" aria-label="Buscar na lista de invoices" />
+              </div>
+
+              <div class="invoice-table-wrap" role="region" aria-label="Tabela de invoices">
+                <table class="invoice-table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Data &amp; Tempo</th>
+                      <th scope="col">Fatura #</th>
+                      <th scope="col">Recebedor(a)</th>
+                      <th scope="col">Status</th>
+                      <th scope="col">Ação</th>
+                      <th scope="col" style="text-align: right;">Quantia</th>
+                    </tr>
+                  </thead>
+                  <tbody id="invoice-body">
+                    <!-- linhas preenchidas via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          </section>
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de enviar/transferir dinheiro -->
+<div class="modal-backdrop hidden" id="send-modal" role="dialog" aria-modal="true" aria-labelledby="send-modal-title">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h2 class="modal-title" id="send-modal-title">Enviar/Transferir Dinheiro</h2>
+      <button class="icon-button" id="send-modal-close" type="button" aria-label="Fechar modal de enviar dinheiro">
+        <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+          <path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+    <form class="modal-body" id="send-form" novalidate>
+      <div class="field-group">
+        <label class="field-label" for="transaction-type">Tipo de Transação:</label>
+        <select class="field-input" id="transaction-type" name="transactionType" required>
+          <option value="">Selecione o tipo</option>
+          <option value="deposit">Adicionar Dinheiro</option>
+          <option value="withdraw">Retirar Dinheiro</option>
+          <option value="transfer">Transferir para Outra Conta</option>
+        </select>
+      </div>
+      
+      <div class="field-group" id="recipient-field" style="display: none;">
+        <label class="field-label" for="recipient-account">Conta Destinatária:</label>
+        <input class="field-input" id="recipient-account" name="recipientAccount" type="text" placeholder="Número da conta ou email" />
+        <span class="field-hint">Informe a conta do destinatário</span>
+      </div>
+      
+      <div class="field-group">
+        <label class="field-label" for="transaction-amount">Valor:</label>
+        <input class="field-input" id="transaction-amount" name="transactionAmount" type="number" step="0.01" min="0.01" placeholder="0.00" required />
+        <span class="field-hint">Valor em dólares (USD)</span>
+      </div>
+      
+      <div class="field-group">
+        <label class="field-label" for="transaction-description">Descrição (Opcional):</label>
+        <input class="field-input" id="transaction-description" name="transactionDescription" type="text" placeholder="Ex: Pagamento de serviços" />
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn-secondary" type="button" id="send-cancel-btn">Cancelar</button>
+        <button class="btn-primary" type="submit" aria-label="Confirmar transação">Confirmar</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+  <!-- Modal de adicionar cartão -->
+  <div class="modal-backdrop hidden" id="card-modal" role="dialog" aria-modal="true" aria-labelledby="card-modal-title">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h2 class="modal-title" id="card-modal-title">Adicionar cartão de débito:</h2>
+        <button class="icon-button" id="card-modal-close" type="button" aria-label="Fechar modal de adicionar cartão">
+          <svg viewBox="0 0 20 20" aria-hidden="true" focusable="false">
+            <path d="M5 5l10 10M15 5 5 15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </button>
+      </div>
+      <form class="modal-body" id="card-form" novalidate>
+        <div class="field-group">
+          <label class="field-label" for="cardholder-name">Nome do Titular:</label>
+          <input class="field-input" id="cardholder-name" name="cardholderName" type="text" placeholder="Nome impresso no cartão" required />
+          <span class="field-hint">Use o mesmo nome cadastrado na sua conta.</span>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="card-number-input">Número do cartão:</label>
+          <input class="field-input" id="card-number-input" name="cardNumber" type="text" inputmode="numeric" autocomplete="off" placeholder="0000 0000 0000 0000" required />
+          <span class="field-hint">16 dígitos, apenas números. A formatação será aplicada automaticamente.</span>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="card-expiry-input">Data</label>
+            <input class="field-input" id="card-expiry-input" name="cardExpiry" type="text" inputmode="numeric" placeholder="MM/YY" required />
+            <span class="field-hint">Ex.: 08/25</span>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="card-cvv-input">CVV</label>
+            <input class="field-input" id="card-cvv-input" name="cardCvv" type="password" inputmode="numeric" placeholder="3 ou 4 dígitos" required />
+            <span class="field-hint">Nunca compartilhe este código.</span>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="card-type-input">Tipo</label>
+          <input class="field-input" id="card-type-input" name="cardType" type="text" placeholder="VISA, Mastercard..." />
+        </div>
+        <div class="modal-footer">
+          <button class="btn-secondary" type="button" id="card-cancel-btn">Cancelar</button>
+          <button class="btn-primary" type="submit" aria-label="Salvar novo cartão">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+    <script src="assets/js/pages/cod_bank.js">
+  </script>
+</body>
+</html>

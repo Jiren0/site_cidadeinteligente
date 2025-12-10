@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <!-- Define que o site deve se ajustar à largura da tela (responsivo) -->
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+  <title>Site de Segurança — Delegacias e Robôs</title>
+
+  <!-- Seu arquivo de estilos externo -->
+  <link rel="stylesheet" href="assets/css/pages/dashboard.segurança.admin/style3.css">
+
+  <!-- CSS da biblioteca Leaflet, mapa -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+  <!-- Script da biblioteca Leaflet responsável pelo mapa -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+
+  <!-- Container principal da aplicação -->
+  <div id="app">
+
+    <!-- Sidebar da esquerda contendo listas e botões -->
+    <div id="sidebar">
+
+      <!-- Título da seção das delegacias -->
+      <h2>Delegacias próximas</h2>
+
+      <!-- Linha com campo para o raio de busca + botão de buscar -->
+      <div class="search-row">
+        <!-- Input onde o usuário define a distância máxima -->
+        <input id="radiusInput" class="input small" type="number" min="500" step="500" value="3000" />
+
+        <!-- Botão para iniciar nova busca -->
+        <button id="refreshBtn" class="btn small">Buscar</button>
+      </div>
+
+      <!-- Lista onde as delegacias serão exibidas dinamicamente -->
+      <div id="stations" class="list"></div>
+
+      <!-- Título da seção dos robôs -->
+      <h2 style="margin-top:18px">Robôs de segurança</h2>
+
+      <!-- Linha com botões de adicionar robô e simular descarga -->
+      <div style="display:flex;gap:8px;margin-bottom:8px">
+        <!-- Cria robôs fictícios no mapa -->
+        <button id="addRobotBtn" class="btn small">Adicionar Robô</button>
+
+        <!-- Faz todos os robôs perderem bateria -->
+        <button id="simulateBtn" class="btn small" style="background:#198754">Simular descarga</button>
+      </div>
+
+      <!-- Lista onde os robôs serão exibidos -->
+      <div id="robots" class="list"></div>
+
+      <!-- Rodapé com informações do funcionamento do sistema -->
+      <footer>
+        Permita acesso à localização. As delegacias são buscadas via Overpass (OpenStreetMap). 
+        Robôs são simulados localmente.
+      </footer>
+    </div>
+
+    <!-- Área do mapa -->
+    <div id="map"></div>
+
+  </div>
+
+  <!-- script JS-->
+  <script src="assets/js/pages/script2.js"></script>
+
+</body>
+</html>

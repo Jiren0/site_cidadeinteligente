@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function() {
         'user@gmail.com': {
             password: 'user123',
             role: 'user',
-            redirectTo: 'dashboard_selection.html'
+            redirectTo: 'dashboard_selection_user.html'
         }
     };
 

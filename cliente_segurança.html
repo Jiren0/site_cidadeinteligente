@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Polícia Militar Inteligente de Keif</title>
+    <link rel="stylesheet" href="assets/css/pages/dashboard.segurança/style4.css">
+</head>
+<body>
+
+    <!-- CABEÇALHO COM LOGO E TÍTULO -->
+    <header>
+        <img src="/assets/img/logo.png" alt="Logo da Polícia Militar Inteligente de Keif" class="logo">
+        <h1>Polícia Militar Inteligente de Keif</h1>
+    </header>
+
+    <!-- SEÇÃO DE INFORMAÇÃO SOBRE O SISTEMA -->
+    <section class="sobre">
+        <h2>Sobre a Polícia Militar Inteligente de Keif</h2>
+        <p>
+            A Polícia Militar Inteligente de Keif utiliza tecnologia avançada para monitorar,
+            analisar ocorrências e responder rapidamente a situações de risco, garantindo
+            maior segurança para toda a população.
+        </p>
+    </section>
+
+    <!-- FORMULÁRIO DE DENÚNCIA -->
+    <section class="formulario">
+        <h2>Registrar Ocorrência ou Denúncia</h2>
+
+        <form id="denunciaForm">
+            <label for="localizacao">Localização do crime:</label>
+            <input type="text" id="localizacao" required placeholder="Ex: Rua Alfa, nº 200, Centro">
+
+            <label for="tipo">Tipo de crime:</label>
+            <select id="tipo" required>
+                <option value="">Selecione...</option>
+                <option>Assalto</option>
+                <option>Furto</option>
+                <option>Sequestro</option>
+                <option>Vandalismo</option>
+                <option>Violência Doméstica</option>
+                <option>Tráfico de Drogas</option>
+                <option>Homicídio</option>
+                <option>Outro</option>
+            </select>
+
+            <label for="suspeito">Características do suspeito:</label>
+            <textarea id="suspeito" rows="4" required placeholder="Descreva aparência, roupas, altura, etc"></textarea>
+
+            <button type="submit">Enviar Denúncia</button>
+        </form>
+    </section>
+
+    <!-- DASHBOARD QUE ATUALIZA AUTOMATICAMENTE -->
+    <section class="dashboard">
+        <h2>Dashboard de Ocorrências</h2>
+
+        <div class="card">
+            <h3>Total de Denúncias Registradas:</h3>
+            <p id="totalDenuncias">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Crime Mais Registrado:</h3>
+            <p id="crimeMaisComum">Nenhum</p>
+        </div>
+
+        <div class="card">
+            <h3>Última Ocorrência Registrada:</h3>
+            <p id="ultimaOcorrencia">Nenhuma ainda</p>
+        </div>
+    </section>
+
+    <script src="assets/js/pages/script4.js"></script>
+</body>
+</html>
