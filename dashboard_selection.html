@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selecione seu Dashboard - KEFI</title>
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+    <!-- CSS Correto -->
+    <link rel="stylesheet" href="assets/css/pages/selection/dashboard_selection.css">
+</head>
+
+<body>
+    <!-- Background animado -->
+    <div class="background-animation">
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+        <div class="bg-circle"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <h1>Bem-vindo ao KEFI</h1>
+        <p>Selecione o dashboard que deseja acessar</p>
+    </header>
+
+    <!-- Conteúdo -->
+    <div class="container">
+        <div class="dashboard-grid">
+
+            <!-- Saúde -->
+            <a href="dashboardadmin.html" class="dashboard-card health" data-dashboard="health">
+                <div class="icon-circle">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <h2 class="card-title">Saúde</h2>
+                <p class="card-description">Acesse informações médicas, consultas e monitoramento de saúde</p>
+                <div class="card-arrow">
+                    <span>Acessar Dashboard</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Educação -->
+            <a href="#" class="dashboard-card education" data-dashboard="education">
+                <div class="icon-circle">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h2 class="card-title">Educação</h2>
+                <p class="card-description">Gerencie cursos, matrículas e desempenho acadêmico</p>
+                <div class="card-arrow">
+                    <span>Acessar Dashboard</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Segurança -->
+            <a href="#" class="dashboard-card security" data-dashboard="security">
+                <div class="icon-circle">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2 class="card-title">Segurança</h2>
+                <p class="card-description">Monitore alertas, câmeras e ocorrências de segurança</p>
+                <div class="card-arrow">
+                    <span>Acessar Dashboard</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+            <!-- Sistema Bancário -->
+            <a href="#" class="dashboard-card banking" data-dashboard="banking">
+                <div class="icon-circle">
+                    <i class="fas fa-university"></i>
+                </div>
+                <h2 class="card-title">Sistema Bancário</h2>
+                <p class="card-description">Controle finanças, transações e serviços bancários</p>
+                <div class="card-arrow">
+                    <span>Acessar Dashboard</span>
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>Carregando Dashboard</h3>
+            <p>Preparando sua experiência...</p>
+        </div>
+    </div>
+
+    <!-- JS Correto -->
+    <script src="assets/js/pages/dashboardselection.js"></script>
+</body>
+</html>

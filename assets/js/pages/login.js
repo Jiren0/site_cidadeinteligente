@@ -12,12 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
         'admin@gmail.com': {
             password: '1234',
             role: 'admin',
-            redirectTo: 'dashboardadmin.html'
+            redirectTo: 'dashboard_selection.html'
         },
         'user@gmail.com': {
             password: 'user123',
             role: 'user',
-            redirectTo: 'dashboard.html'
+            redirectTo: 'dashboard_selection.html'
         }
     };
 
