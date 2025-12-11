@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Estuda+ • Painel do Professor</title>
+
+  <!-- Ícones + GSAP -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+
+  <!-- CSS EMBUTIDO -->
+  <style>
+    :root {
+      --bg:#F0F8FF; --primary:#2257c8; --primary-light:#4DB8E6; --primary-dark:#006699;
+      --accent:#00C4E6; --gray:#64748B; --light:#FFFFFF;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:#1E293B;padding-bottom:90px}
+    header{background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;padding:30px 20px 40px;text-align:center;border-bottom-left-radius:30px;border-bottom-right-radius:30px;box-shadow:0 10px 30px rgba(0,153,204,.25)}
+    .avatar{width:84px;height:84px;border-radius:50%;background:#fff;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:800;color:var(--primary);box-shadow:0 8px 25px rgba(0,0,0,.2)}
+    .search-container{padding:20px 20px 10px}
+    .search-bar{background:#fff;border-radius:32px;padding:16px 22px;max-width:720px;margin:0 auto;display:flex;align-items:center;gap:14px;border:2px solid transparent;box-shadow:0 10px 30px rgba(0,153,204,.18);transition:all .3s}
+    .search-bar input{border:none;outline:none;flex:1;font-size:16px;color:var(--primary-dark)}
+    .search-btn{background:var(--primary);color:#fff;border:none;width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+    .tabs{padding:10px 20px 20px;display:flex;gap:12px;overflow-x:auto;scrollbar-width:none}
+    .tab{background:#fff;padding:12px 20px;border-radius:30px;display:flex;align-items:center;gap:10px;box-shadow:0 5px 18px rgba(0,153,204,.12);cursor:pointer;font-weight:600;transition:.25s;white-space:nowrap}
+    .tab.active{background:var(--primary);color:#fff;transform:scale(1.07)}
+    .content-container{position:relative;min-height:70vh}
+    .page{position:absolute;width:100%;padding:20px;opacity:0;visibility:hidden;transition:.5s}
+    .page.active{opacity:1;visibility:visible}
+    .cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding:0 10px;margin:25px 0}
+    .card{background:#fff;border-radius:28px;padding:26px 10px;text-align:center;border-top:5px solid var(--primary-light);box-shadow:0 12px 35px rgba(0,153,204,.18);transition:.3s}
+    .card:hover{transform:translateY(-6px)}
+    .big{font-size:34px;color:var(--primary-dark);font-weight:bold}
+    .section{background:#fff;padding:26px;border-radius:28px;margin:18px 12px;box-shadow:0 12px 35px rgba(0,153,204,.12)}
+    .section h3{font-size:21px;color:var(--primary-dark);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+    .list-item{background:#EBF8FF;padding:18px 20px;margin:12px 0;border-radius:20px;display:flex;justify-content:space-between;align-items:center;border-left:6px solid var(--primary-light);box-shadow:0 10px 25px rgba(0,153,204,.12)}
+    .btn-open{padding:10px 16px;background:var(--primary);color:#fff;border:none;border-radius:14px;cursor:pointer;font-weight:600}
+    .btn-back{background:none;border:none;color:var(--primary-dark);font-size:17px;cursor:pointer;margin-bottom:8px}
+    .grade-item{display:flex;align-items:center;margin:16px 0}
+    .grade-bar{height:26px;background:#E0F2FE;flex:1;border-radius:13px;margin:0 14px;overflow:hidden}
+    .bar{height:100%;width:0%;background:linear-gradient(90deg,#0099CC,#4DB8E6);border-radius:13px}
+    input[type="text"],input[type="date"],select{width:100%;padding:12px 14px;border-radius:12px;border:1px solid #e6eef8;margin:10px 0;box-shadow:0 8px 20px rgba(0,153,204,.06)}
+    .btn-create{padding:12px 16px;border-radius:14px;border:none;background:linear-gradient(135deg,var(--primary),var(--primary-light));color:#fff;font-weight:700;cursor:pointer}
+    .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;justify-content:space-around;padding:16px 0 26px;border-radius:32px 32px 0 0;box-shadow:0 -8px 30px rgba(0,153,204,.18)}
+    .nav-item{text-align:center;font-size:14px;cursor:pointer}
+    .nav-item.active{color:var(--primary);transform:scale(1.1)}
+    @media(max-width:768px){.cards{grid-template-columns:repeat(2,1fr)}}
+    /* pequenas melhorias visuais para lista de provas */
+    .prova-card{display:flex;justify-content:space-between;align-items:center;padding:14px;border-radius:14px;background:#fff;border-left:6px solid var(--primary-light);box-shadow:0 8px 22px rgba(0,153,204,.08);margin:10px 0}
+    .muted{color:var(--gray);font-size:13px}
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="avatar">P</div>
+    <h2>Olá, Professor Guilherme!</h2>
+    <p>Coordenação Escolar • Colégio Horizonte</p>
+  </header>
+
+  <!-- BUSCA -->
+  <div class="search-container">
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input id="searchInput" placeholder="Buscar alunos, turmas, provas..." />
+      <button class="search-btn" title="Buscar"><i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <div class="tab active" data-target="dashboard"><i class="fas fa-chart-line"></i> Painel</div>
+    <div class="tab" data-target="turmas"><i class="fas fa-users"></i> Turmas</div>
+    <div class="tab" data-target="alunos-turma"><i class="fas fa-user-graduate"></i> Alunos</div>
+    <div class="tab" data-target="provas"><i class="fas fa-file-circle-check"></i> Provas</div>
+  </div>
+
+  <div class="content-container">
+
+    <!-- DASHBOARD -->
+    <section id="dashboard" class="page active">
+      <div class="cards">
+        <div class="card"><div class="big">1</div><small>Turma</small></div>
+        <div class="card"><div class="big">32</div><small>Alunos</small></div>
+        <div class="card"><div class="big">12</div><small>Provas</small></div>
+        <div class="card"><div class="big">87%</div><small>Média</small></div>
+      </div>
+
+      <div class="section">
+        <h3><i class="fas fa-clock"></i> Atividades Recentes</h3>
+        <div class="list-item">Notas lançadas — 9º A</div>
+        <div class="list-item">Prova criada — Ciências</div>
+        <div class="list-item">Faltas atualizadas — 9º A</div>
+      </div>
+    </section>
+
+    <!-- TURMAS (apenas 9A) -->
+    <section id="turmas" class="page">
+      <div class="section">
+        <h3><i class="fas fa-users"></i> Turmas</h3>
+        <div class="list-item" onclick="showPage('alunos-turma')">9º Ano A — 32 alunos</div>
+      </div>
+    </section>
+
+    <!-- ALUNOS DA TURMA (32) -->
+    <section id="alunos-turma" class="page">
+      <div class="section">
+        <h3><i class="fas fa-user-graduate"></i> Alunos — 9º A (32 alunos)</h3>
+
+        <!-- lista gerada via JS -->
+        <div id="listaAlunos"></div>
+      </div>
+    </section>
+
+    <!-- BOLETIM -->
+    <section id="boletim" class="page">
+      <div class="section">
+        <button class="btn-back" onclick="showPage('alunos-turma')"><i class="fas fa-arrow-left"></i> Voltar</button>
+        <h3 id="boletim-nome">Boletim</h3>
+        <p class="muted">Turma: 9º Ano A</p>
+      </div>
+
+      <div class="section">
+        <h3><i class="fas fa-file-contract"></i> Notas</h3>
+        <div class="grade-item" data-score="92"><span>Português</span><div class="grade-bar"><div class="bar"></div></div><span class="score">9,2</span></div>
+        <div class="grade-item" data-score="78"><span>Matemática</span><div class="grade-bar"><div class="bar"></div></div><span class="score">7,8</span></div>
+        <div class="grade-item" data-score="88"><span>História</span><div class="grade-bar"><div class="bar"></div></div><span class="score">8,8</span></div>
+        <div class="grade-item" data-score="95"><span>Ciências</span><div class="grade-bar"><div class="bar"></div></div><span class="score">9,5</span></div>
+      </div>
+
+      <div class="section">
+        <h3><i class="fas fa-user-clock"></i> Faltas</h3>
+        <p>Total: <strong id="faltas-total">4</strong></p>
+      </div>
+
+      <div class="section">
+        <h3><i class="fas fa-chart-pie"></i> Média Geral</h3>
+        <p style="font-size:30px;font-weight:bold;color:var(--primary-dark)"><span id="media-geral">8,8</span></p>
+      </div>
+    </section>
+
+    <!-- PROVAS (CRIAR + LISTAR) -->
+    <section id="provas" class="page">
+      <div class="section">
+        <h3><i class="fas fa-file-circle-check"></i> Criar Prova</h3>
+
+        <label class="muted">Título</label>
+        <input id="tituloProva" type="text" placeholder="Título da prova (ex: Recuperação Matemática)" />
+
+        <label class="muted">Data</label>
+        <input id="dataProva" type="date" />
+
+        <label class="muted">Matéria</label>
+        <select id="materiaProva">
+          <option value="Matemática">Matemática</option>
+          <option value="Português">Português</option>
+          <option value="Ciências">Ciências</option>
+          <option value="História">História</option>
+          <option value="Geografia">Geografia</option>
+        </select>
+
+        <div style="height:10px"></div>
+        <button class="btn-create" onclick="criarProva()">Criar Prova</button>
+      </div>
+
+      <div class="section">
+        <h3><i class="fas fa-list-check"></i> Provas Criadas</h3>
+        <div id="listaProvas">
+          <!-- preenchido via JS -->
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- NAV INFERIOR -->
+  <nav class="bottom-nav">
+    <div class="nav-item active" data-target="dashboard"><i class="fas fa-chart-line"></i> Painel</div>
+    <div class="nav-item" data-target="turmas"><i class="fas fa-users"></i> Turmas</div>
+    <div class="nav-item" data-target="alunos-turma"><i class="fas fa-user-graduate"></i> Alunos</div>
+    <div class="nav-item" data-target="provas"><i class="fas fa-file-circle-check"></i> Provas</div>
+  </nav>
+
+  <!-- SCRIPTS -->
+  <script>
+    // dados dos 32 alunos com % de faltas
+    const alunos = [
+      ["Ana Clara","3%"],["João Pedro","0%"],["Marcos Lima","5%"],
+      ["Beatriz Nunes","2%"],["Pedro Henrique","1%"],["Sofia Andrade","4%"],
+      ["Gabriel Rocha","0%"],["Julia Fernandes","1%"],["Luiz Otávio","6%"],
+      ["Maria Eduarda","2%"],["Kauã Santos","3%"],["Helena Souza","0%"],
+      ["Arthur Mendes","7%"],["Vitória Santos","1%"],["Enzo Araújo","4%"],
+      ["Lara Monteiro","2%"],["Miguel Costa","5%"],["Isabela Martins","0%"],
+      ["Rafael Duarte","3%"],["Nicole Alves","2%"],["Diego Pereira","8%"],
+      ["Amanda Ribeiro","1%"],["Lucas Gabriel","0%"],["Stephanie Moreira","4%"],
+      ["Thiago Batista","5%"],["Bianca Lopes","2%"],["Matheus Valente","3%"],
+      ["Karina Oliveira","1%"],["Daniel Freitas","6%"],["Emanuel Gomes","7%"],
+      ["Aline Rodrigues","2%"],["Roberto Silva","4%"]
+    ];
+
+    // renderiza a lista de alunos
+    function renderAlunos() {
+      const container = document.getElementById("listaAlunos");
+      let html = "";
+      alunos.forEach(a => {
+        html += `<div class="list-item">${a[0]} — ${a[1]} faltas <button class="btn-open" onclick="openBoletim('${a[0]}')">Boletim</button></div>`;
+      });
+      container.innerHTML = html;
+    }
+    renderAlunos();
+
+    // navegação entre páginas
+    const tabs = document.querySelectorAll(".tab, .nav-item");
+    const pages = document.querySelectorAll(".page");
+    function showPage(id) {
+      tabs.forEach(t => t.classList.remove("active"));
+      pages.forEach(p => p.classList.remove("active"));
+      document.querySelectorAll("[data-target='"+id+"']").forEach(e => e.classList.add("active"));
+      const el = document.getElementById(id);
+      if(el) el.classList.add("active");
+      // animação simples de entrada
+      gsap.fromTo(`#${id} > *`, {y:30,opacity:0},{y:0,opacity:1,stagger:0.08,duration:.5});
+    }
+    tabs.forEach(t => t.addEventListener("click", () => showPage(t.dataset.target)));
+
+    // abrir boletim de um aluno (usa dados estáticos de exemplo)
+    function openBoletim(nome) {
+      document.getElementById("boletim-nome").innerText = nome;
+      // exemplo: poderíamos ajustar notas/faltas dinamicamente por aluno
+      document.getElementById("faltas-total").innerText = "4";
+      document.getElementById("media-geral").innerText = "8,8";
+      showPage("boletim");
+      // animação das barras conforme data-score
+      gsap.to("#boletim .bar", {
+        width: (i, el) => el.parentElement.parentElement.dataset.score + "%",
+        duration: 1.2,
+        stagger: 0.12,
+        ease: "power3.out"
+      });
+    }
+
+    /* ----------------- LÓGICA DE PROVAS (CRIAR / LISTAR / REMOVER) ----------------- */
+    let provas = [
+      // opcional: provas iniciais de exemplo
+      { titulo: "Recuperação Matemática", data: "2025-11-27", materia: "Matemática" },
+      { titulo: "Prova Final Ciências", data: "2025-11-29", materia: "Ciências" }
+    ];
+
+    function criarProva() {
+      const titulo = document.getElementById("tituloProva").value.trim();
+      const data = document.getElementById("dataProva").value;
+      const materia = document.getElementById("materiaProva").value;
+
+      if(!titulo || !data) {
+        alert("Preencha o título e a data da prova.");
+        return;
+      }
+
+      provas.push({ titulo, data, materia });
+      atualizarListaProvas();
+
+      // limpa campos e dá foco no título
+      document.getElementById("tituloProva").value = "";
+      document.getElementById("dataProva").value = "";
+      document.getElementById("tituloProva").focus();
+
+      // feedback: anima a nova lista
+      gsap.from("#listaProvas .prova-card:last-child", {y:20,opacity:0,duration:.5,ease:"power2.out"});
+    }
+
+    function atualizarListaProvas() {
+      const container = document.getElementById("listaProvas");
+      if(provas.length === 0) {
+        container.innerHTML = "<p class='muted'>Nenhuma prova criada ainda.</p>";
+        return;
+      }
+      let html = "";
+      provas.forEach((p, idx) => {
+        // formata data para dd/mm/yyyy se possível
+        let dataFmt = p.data;
+        try {
+          const d = new Date(p.data);
+          if(!isNaN(d)) {
+            const dd = String(d.getDate()).padStart(2,"0");
+            const mm = String(d.getMonth()+1).padStart(2,"0");
+            const yyyy = d.getFullYear();
+            dataFmt = dd + "/" + mm + "/" + yyyy;
+          }
+        } catch(e) {}
+        html += `
+          <div class="prova-card">
+            <div>
+              <strong>${p.titulo}</strong><br>
+              <span class="muted">Matéria: ${p.materia} • Data: ${dataFmt}</span>
+            </div>
+            <div style="display:flex;gap:8px;align-items:center">
+              <button class="btn-open" onclick="editarProva(${idx})" title="Editar">✎</button>
+              <button class="btn-open" style="background:#ef4444" onclick="removerProva(${idx})" title="Excluir">Excluir</button>
+            </div>
+          </div>
+        `;
+      });
+      container.innerHTML = html;
+    }
+
+    function removerProva(index) {
+      if(!confirm("Remover esta prova?")) return;
+      provas.splice(index,1);
+      atualizarListaProvas();
+    }
+
+    // edição simples (preenche campos para editar)
+    function editarProva(index) {
+      const p = provas[index];
+      document.getElementById("tituloProva").value = p.titulo;
+      document.getElementById("dataProva").value = p.data;
+      document.getElementById("materiaProva").value = p.materia;
+      // remove a prova antiga para que ao salvar recrie (alternativa simples)
+      provas.splice(index,1);
+      atualizarListaProvas();
+      showPage("provas");
+      document.getElementById("tituloProva").focus();
+    }
+
+    // inicializa lista de provas ao carregar
+    atualizarListaProvas();
+
+    // animação inicial
+    gsap.from("header, .search-container, .cards .card", {y:60,opacity:0,stagger:0.12,duration:.9,ease:"back.out(1.5)"});
+  </script>
+</body>
+</html>

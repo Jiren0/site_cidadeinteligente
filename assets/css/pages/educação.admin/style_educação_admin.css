@@ -1,0 +1,203 @@
+/* IMPORTA O SEU STYLE PRINCIPAL (OBRIGATÓRIO) */
+@import url('style_educação_admin.css');
+
+/* ---------- ESTILO DO PROFESSOR / ADMIN ----------- */
+
+.page {
+  animation: fadeIn .5s ease forwards;
+}
+
+/* Ítens de lista (turmas, alunos, provas...) */
+.list-item {
+  background: white;
+  padding: 18px 20px;
+  margin: 14px 0;
+  border-radius: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  border-left: 6px solid var(--primary-light);
+  box-shadow: 0 10px 28px rgba(0, 153, 204, .15);
+
+  font-size: 16px;
+  transition: .25s ease;
+}
+
+.list-item:hover {
+  transform: translateX(6px);
+  box-shadow: 0 16px 35px rgba(0, 153, 204, .25);
+}
+
+/* Inputs premium */
+input[type="text"],
+input[type="date"],
+select {
+  width: 100%;
+  background: #ffffff;
+  padding: 16px 18px;
+
+  border-radius: 18px;
+  border: 2px solid transparent;
+
+  font-size: 16px;
+  color: var(--primary-dark);
+
+  box-shadow: 0 10px 28px rgba(0, 153, 204, .12);
+  margin: 8px 0;
+
+  transition: .25s ease;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--primary-light);
+  box-shadow: 0 15px 35px rgba(0, 153, 204, .25);
+  transform: translateY(-3px);
+}
+
+/* Input para notas */
+.input-nota {
+  width: 85px !important;
+  padding: 12px !important;
+  border-radius: 14px;
+  font-size: 16px;
+  text-align: center;
+  box-shadow: 0 8px 22px rgba(0, 153, 204, .2);
+}
+
+/* Botão de salvar */
+.btn-save {
+  width: 100%;
+  margin-top: 18px;
+
+  padding: 16px;
+  border: none;
+  border-radius: 20px;
+
+  font-weight: bold;
+  font-size: 17px;
+  cursor: pointer;
+
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: white;
+
+  box-shadow: 0 12px 28px rgba(0, 153, 204, .25);
+
+  transition: .3s;
+}
+
+.btn-save:hover {
+  transform: scale(1.04);
+  box-shadow: 0 16px 40px rgba(0, 153, 204, .35);
+}
+
+/* Cards aprimorados */
+.cards .card {
+  background: white;
+  border-radius: 28px;
+  padding: 26px 10px;
+  text-align: center;
+
+  border-top: 5px solid var(--primary-light);
+  box-shadow: 0 12px 35px rgba(0, 153, 204, .18);
+
+  transition: .3s ease;
+}
+
+.cards .card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 18px 45px rgba(0, 153, 204, .28);
+}
+
+.cards .big {
+  font-size: 36px;
+  color: var(--primary-dark);
+}
+
+/* Seções */
+.section {
+  background: #ffffff;
+  padding: 28px;
+  border-radius: 28px;
+  margin: 18px;
+
+  box-shadow: 0 12px 40px rgba(0, 153, 204, .15);
+  transition: .3s ease;
+}
+
+.section:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 55px rgba(0, 153, 204, .25);
+}
+
+.section h3 {
+  font-size: 22px;
+  color: var(--primary-dark);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Próximas Ações / Logs */
+.upcoming {
+  background: #EBF8FF;
+  padding: 18px;
+  border-radius: 20px;
+
+  border-left: 6px solid var(--primary-light);
+  box-shadow: 0 10px 25px rgba(0, 153, 204, .12);
+
+  font-size: 15px;
+  margin: 10px 0;
+  transition: .25s ease;
+}
+
+.upcoming:hover {
+  transform: translateX(5px);
+  box-shadow: 0 16px 35px rgba(0, 153, 204, .25);
+}
+
+/* Animação */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+/* Ajuste do avatar do professor */
+.avatar {
+  background: #fff;
+  color: var(--primary-dark);
+  font-size: 34px !important;
+  font-weight: bold;
+  border: 3px solid white;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, .2);
+}
+
+/* Ajustes da navbar inferior */
+.bottom-nav {
+  background: #ffffff;
+  border-radius: 30px 30px 0 0;
+  box-shadow: 0 -10px 35px rgba(0, 153, 204, .18);
+}
+
+.nav-item {
+  font-size: 14px;
+  font-weight: 600;
+  padding-top: 4px;
+  transition: .25s ease;
+}
+
+.nav-item.active {
+  color: var(--primary);
+  transform: scale(1.25);
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estuda+ • Dashboard Escolar</title>
+  <link rel="stylesheet" href="assets/css/pages/educação.user/style_educação_user.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <div class="avatar">Student</div>
+    <h2>Olá, Ana Clara!</h2>
+    <p>9º ano A • Colégio Horizonte</p>
+  </header>
+
+  <div class="search-container">
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Buscar matérias, provas, livros, tarefas...">
+      <button class="search-btn"><i class="fas fa-arrow-right"></i></button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" data-target="home">Início</div>
+    <div class="tab" data-target="grades">Notas</div>
+    <div class="tab" data-target="previous">Anterior</div>
+    <div class="tab" data-target="attendance">Faltas</div>
+    <div class="tab" data-target="schedule">Horário</div>
+    <div class="tab" data-target="books">Livros</div>
+  </div>
+
+  <div class="content-container">
+
+    <!-- Início -->
+    <section id="home" class="page active">
+      <div class="cards">
+        <div class="card"><div class="big">8,7</div><small>Média Atual</small></div>
+        <div class="card"><div class="big">12</div><small>Faltas</small></div>
+        <div class="card"><div class="big">92%</div><small>Presença</small></div>
+        <div class="card"><div class="big">6</div><small>Livros Lidos</small></div>
+      </div>
+      <div class="section">
+        <h3>Próximas Provas</h3>
+        <div class="upcoming" data-search="matemática recuperação">Qua 27/11 • Matemática – Recuperação</div>
+        <div class="upcoming" data-search="ciências final">Sex 29/11 • Ciências – Prova Final</div>
+        <div class="upcoming" data-search="geografia trabalho">Ter 03/12 • Geografia – Trabalho</div>
+      </div>
+    </section>
+
+    <!-- Notas Atuais -->
+    <section id="grades" class="page">
+      <div class="section">
+        <h3>Desempenho Atual</h3>
+        <div class="grades-list">
+          <div class="grade-item" data-score="92" data-search="português"><span>Português</span><div class="grade-bar"><div class="bar"></div></div><span class="score">9,2</span></div>
+          <div class="grade-item" data-score="71" data-search="matemática"><span>Matemática</span><div class="grade-bar"><div class="bar"></div></div><span class="score">7,1</span></div>
+          <div class="grade-item" data-score="85" data-search="ciências"><span>Ciências</span><div class="grade-bar"><div class="bar"></div></div><span class="score">8,5</span></div>
+          <div class="grade-item" data-score="90" data-search="história"><span>História</span><div class="grade-bar"><div class="bar"></div></div><span class="score">9,0</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bimestre Anterior -->
+    <section id="previous" class="page">
+      <div class="section">
+        <h3>Notas do Bimestre Anterior</h3>
+        <div class="grades-list">
+          <div class="grade-item" data-score="88" data-search="português"><span>Português</span><div class="grade-bar"><div class="bar"></div></div><span class="score">8,8</span></div>
+          <div class="grade-item" data-score="65" data-search="matemática"><span>Matemática</span><div class="grade-bar"><div class="bar"></div></div><span class="score">6,5</span></div>
+          <div class="grade-item" data-score="92" data-search="ciências"><span>Ciências</span><div class="grade-bar"><div class="bar"></div></div><span class="score">9,2</span></div>
+          <div class="grade-item" data-score="85" data-search="história"><span>História</span><div class="grade-bar"><div class="bar"></div></div><span class="score">8,5</span></div>
+          <div class="grade-item" data-score="58" data-search="inglês"><span>Inglês</span><div class="grade-bar"><div class="bar"></div></div><span class="score">5,8</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Faltas, Horário, Livros (mantidos) -->
+    <section id="attendance" class="page"><div class="section"><h3>Faltas</h3><p>Total: 12 (8 justificadas)</p></div></section>
+    <section id="schedule" class="page"><div class="section"><h3>Horário Hoje</h3><div class="schedule-item">07:30 – Português</div><div class="schedule-item">08:20 – Matemática</div></div></section>
+    <section id="books" class="page">
+      <div class="section">
+        <h3>Leituras Obrigatórias</h3>
+        <div class="book-grid">
+          <div class="book" data-search="menino dedo verde"><img src="https://covers.openlibrary.org/b/isbn/9786555111484-M.jpg" alt=""><div class="book-status">Checkmark</div><small>O Menino do Dedo Verde</small></div>
+          <div class="book" data-search="dom casmurro"><img src="https://covers.openlibrary.org/b/isbn/9786555114720-M.jpg" alt=""><div class="book-status">Hourglass</div><small>Dom Casmurro</small></div>
+          <div class="book" data-search="metamorfose"><img src="https://covers.openlibrary.org/b/isbn/9788533613361-M.jpg" alt=""><div class="book-status">Hourglass</div><small>A Metamorfose</small></div>
+          <div class="book" data-search="príncipe"><img src="https://covers.openlibrary.org/b/isbn/9788572327220-M.jpg" alt=""><div class="book-status">Lightning</div><small>O Príncipe</small></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <nav class="bottom-nav">
+    <div class="nav-item active" data-target="home">Início</div>
+    <div class="nav-item" data-target="grades">Notas</div>
+    <div class="nav-item" data-target="previous">Anterior</div>
+    <div class="nav-item" data-target="attendance">Faltas</div>
+    <div class="nav-item" data-target="books">Livros</div>
+  </nav>
+
+  <script src="assets/js/pages/script_educação_user.js"></script>
+</body>
+</html>
